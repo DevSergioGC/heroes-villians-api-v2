@@ -15,7 +15,7 @@ import { ConfigurationModule } from 'src/config/configuration.module';
         password: configService.password,
         database: configService.database,
         synchronize: configService.synchronize,
-        entities: [__dirname + '/**/*.entity{.ts,.js}'],
+        entities: [__dirname + '../../**/*.entity{.ts,.js}'],
         migrations: [__dirname + '/migrations/*{.ts,.js}'],
       }),
       inject: [DatabaseConfigService],
