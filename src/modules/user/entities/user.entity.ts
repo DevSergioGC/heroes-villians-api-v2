@@ -4,6 +4,11 @@ import { BaseEntity } from 'src/modules/base/base.entity';
 
 @Entity({ name: 'user' })
 export class UserEntity extends BaseEntity {
+  constructor(partial?: Partial<UserEntity>) {
+    super();
+    Object.assign(this, partial);
+  }
+
   @PrimaryColumn({ name: 'id_user' })
   id: number;
 
