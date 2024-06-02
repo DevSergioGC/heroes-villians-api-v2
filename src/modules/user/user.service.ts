@@ -60,13 +60,15 @@ export class UserService {
 
   async checkUser(
     username: CreateUserDto['username'],
-  ): Promise<boolean | GeneralResponseDto<CreateUserDto>> {
+  ): Promise<GeneralResponseDto<UserEntity>> {
     try {
-      const user = await this.userRepository.findOneBy({ username });
-      return !!user;
+      const user: UserEntity = await this.userRepository.findOneBy({
+        username,
+      });
+      return new GeneralResponseDto<UserEntity>(true, HttpStatus.OK, user);
     } catch (error) {
       this.logger.error(`Error checking user: ${error.message}`);
-      return new GeneralResponseDto<CreateUserDto>(
+      return new GeneralResponseDto<UserEntity>(
         false,
         HttpStatus.INTERNAL_SERVER_ERROR,
         null,
