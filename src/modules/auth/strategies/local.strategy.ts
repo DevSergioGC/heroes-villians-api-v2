@@ -1,7 +1,7 @@
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-local';
 import { AuthService } from '../auth.service';
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { GeneralResponseDto } from 'src/modules/base/generalReturn.dto';
 
 @Injectable()
@@ -17,7 +17,9 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     if (user.success) {
       return user.data;
     } else {
-      throw new UnauthorizedException();
+      throw new HttpException('Invalid Credentials.', HttpStatus.UNAUTHORIZED, {
+        cause: `Credentials not valid. username: ${username}`,
+      });
     }
   }
 }
